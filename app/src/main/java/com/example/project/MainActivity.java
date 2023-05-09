@@ -12,10 +12,6 @@ import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences myPreferenceRef;
-    SharedPreferences.Editor myPreferenceEditor;
-    TextView prefTextRef;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,11 +19,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button nextButton = findViewById(R.id.buttonNext);
+
+        SharedPreferences myPreferenceRef = getSharedPreferences("MyPreferenceName", MODE_PRIVATE);
+        SharedPreferences.Editor myPreferenceEditor = myPreferenceRef.edit();
+        TextView prefTextRef=new TextView(this);
+        prefTextRef=(TextView)findViewById(R.id.textView);
+        prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "Fel text"));
+
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-
                 startActivity(intent);
             }
         });
@@ -36,10 +39,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        myPreferenceRef = getSharedPreferences("MyPreferenceName", MODE_PRIVATE);
-        //myPreferenceEditor = myPreferenceRef.edit();
-        prefTextRef=new TextView(this);
+        SharedPreferences myPreferenceRef = getSharedPreferences("MyPreferenceName", MODE_PRIVATE);
+        SharedPreferences.Editor myPreferenceEditor = myPreferenceRef.edit();
+        TextView prefTextRef=new TextView(this);
         prefTextRef=(TextView)findViewById(R.id.textView);
         prefTextRef.setText(myPreferenceRef.getString("MyAppPreferenceString", "Fel text"));
     }
+
 }

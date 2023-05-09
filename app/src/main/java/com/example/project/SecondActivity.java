@@ -31,13 +31,13 @@ public class SecondActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        myPreferenceRef = getPreferences(Context.MODE_PRIVATE);
-        myPreferenceEditor = myPreferenceRef.edit();
-        myPreferenceRef = getPreferences(MODE_PRIVATE);
-        myPreferenceEditor = myPreferenceRef.edit();
     }
+
+
+
     public void savePref(View v){
+        SharedPreferences myPreferenceRef = getSharedPreferences("MyPreferenceName", MODE_PRIVATE);
+        SharedPreferences.Editor myPreferenceEditor = myPreferenceRef.edit();
         // Get the text
         newPrefText=new EditText(this);
         newPrefText=(EditText)findViewById(R.id.editText);
